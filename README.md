@@ -1,4 +1,4 @@
-#Educational System Management
+"# Educational System Management"
 Project Overview
 This project is a comprehensive educational system management application built using C# and Entity Framework Core. It is designed to manage students, teachers, courses, and enrollments within an educational institution. The system allows users to perform CRUD operations on students, teachers, and courses, as well as manage course enrollments for students and assign courses to teachers.
 
