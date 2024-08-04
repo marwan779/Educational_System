@@ -1,8 +1,11 @@
 "# Educational System Management"
+---------------------------------
 Project Overview
+----------------
 This project is a comprehensive educational system management application built using C# and Entity Framework Core. It is designed to manage students, teachers, courses, and enrollments within an educational institution. The system allows users to perform CRUD operations on students, teachers, and courses, as well as manage course enrollments for students and assign courses to teachers.
 
 Features
+--------
 Student Management: Add, search, update, and delete student records. View details of all students.
 Teacher Management: Add, search, update, and delete teacher records. Assign and deassign courses to teachers.
 Course Management: Add, search, update, and delete courses. Assign courses to students and teachers.
@@ -11,7 +14,10 @@ Technologies Used
 C#: The primary programming language used for the application.
 Entity Framework Core: ORM for database management.
 Microsoft SQL Server: Database used to store the application data.
+
 Getting Started
+---------------
+
 Prerequisites
 .NET Core SDK (version X.X or later)
 Microsoft SQL Server or another compatible database server
@@ -36,6 +42,8 @@ dotnet build
 dotnet run
 
 Usage
+-----
+
 Launch the application.
 Follow the on-screen prompts to manage students, teachers, courses, and enrollments.
 Project Structure
@@ -51,4 +59,5 @@ Make your changes and commit them.
 Push to your fork and create a pull request.
 
 Contact
+-------
 For any questions or inquiries, please contact [https://www.linkedin.com/in/marwan-mohamed-125a4b252/].
