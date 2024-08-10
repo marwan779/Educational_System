@@ -13,6 +13,8 @@
 
         public string Email { get; set; }
 
+        public double AverageScore { get; set; }
+
         // Foreign key for the department the student belongs to
         public int DepartmentID { get; set; }
 

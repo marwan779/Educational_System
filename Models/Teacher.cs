@@ -11,6 +11,8 @@
         public int DepartmentID { get; set; }
         public DateTime HireDate { get; set; }
 
+        public double Salary { get; set; }  
+
         // Navigation properties
 
         // The department to which the teacher belongs

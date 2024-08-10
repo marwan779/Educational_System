@@ -1,4 +1,6 @@
-﻿namespace Educational_System.Models
+﻿using System.Diagnostics.Contracts;
+
+namespace Educational_System.Models
 {
     public class Enrollment
     {
@@ -9,6 +11,9 @@
         public int CourseID { get; set; }
         public DateTime EnrollmentDate { get; set; }
 
+        // the score of the course 
+        public double? score { get; set; }
+   
         // Navigation properties
 
         // The student who is enrolled in the course
