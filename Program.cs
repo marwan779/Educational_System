@@ -47,12 +47,7 @@ namespace Educational_System
                             break;
                         case 2:
                             student = StudentManagement.SearchForStudent();
-                            Console.WriteLine($"Name: {student.StudentName}\n" +
-                                              $"ID: {student.StudentID}\n" +
-                                              $"Department ID: {student.DepartmentID}" +
-                                              $"\nEmail: {student.Email}" +
-                                              $"\nAge {DateTime.Now.Year - student.DateOfBirth.Year}\nDate of Birth {student.DateOfBirth.ToShortDateString()}" +
-                                              $"\nEnrollment Date: {student.EnrollmentDate.ToShortDateString()}");
+                            Helpers.PrintStudent(student);
 
                             break;
                         case 3:
@@ -86,27 +81,7 @@ namespace Educational_System
                             break;
                         case 2:
                             teacher = TeachersManagement.SearchForTeacher();
-                            Console.WriteLine($"Name: {teacher.TeacherName}\n" +
-                                              $"ID: {teacher.TeacherID}\n" +
-                                              $"Department ID: {teacher.DepartmentID}" +
-                                              $"\nEmail: {teacher.Email}\n" +
-                                              $"Hire Date: {teacher.HireDate.ToShortDateString()}");
-
-                            // Fetch and display courses assigned to the teacher
-                            var courses = from course1 in _context.Courses
-                                          join teacher1 in _context.Teachers
-                                          on course1.TeacherID equals teacher.TeacherID
-                                          where teacher1.TeacherID == teacher.TeacherID
-                                          select new
-                                          {
-                                              CourseName = course1.CourseName,
-                                              CourseID = course1.CourseID,
-                                          };
-                            Console.WriteLine($"Courses assigned to Teacher ID {teacher.TeacherID}:");
-                            foreach (var c in courses)
-                            {
-                                Console.WriteLine($"Course ID: {c.CourseID}, Course Name: {c.CourseName}");
-                            }
+                            Helpers.PrintTeacher(teacher);
                             break;
                         case 3:
                             TeachersManagement.UpdateTeacher();
@@ -137,10 +112,11 @@ namespace Educational_System
                                       "[7]View Student Enrollments\n" +
                                       "[8]Remove Course For Student\n" +
                                       "[9]Deassign Course From Teacher\n" +
+                                      "[10]Assign Score To Student\n" +
                                       "---------------------");
                     Console.Write("Enter Your Choice: ");
                     int EnrollmentManage = int.Parse(Console.ReadLine());
-                    Teacher teacher2 = new Teacher();
+   
                     switch (EnrollmentManage)
                     {
                         case 1:
@@ -148,15 +124,7 @@ namespace Educational_System
                             break;
                         case 2:
                             course = EnrollmentManagement.SearchForCourse();
-                            if (course.TeacherID != null)
-                            {
-                                teacher2 = _context.Teachers.Find(course.TeacherID);
-                            }
-                            Console.WriteLine($"Name: {course.CourseName}\n" +
-                                              $"ID: {course.CourseID}\n" +
-                                              $"Department ID: {course.DepartmentID}\n" +
-                                              $"Credits: {course.Credits}\n" +
-                                              $"Teacher: {teacher2.TeacherName}- {teacher2.TeacherID}");
+                            Helpers.PrintCourse(course);
                             break;
                         case 3:
                             EnrollmentManagement.UpdateCourse();
@@ -178,6 +146,9 @@ namespace Educational_System
                             break;
                         case 9:
                             EnrollmentManagement.DeassignCourseFromTeacher();
+                            break;
+                        case 10:
+                            EnrollmentManagement.AssignScoreToStudent();                            
                             break;
                         default:
                             Console.WriteLine("Enter Valid Choice");

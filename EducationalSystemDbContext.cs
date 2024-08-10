@@ -106,6 +106,10 @@ namespace Educational_System
                 .HasColumnType("date")
                 .HasDefaultValue(DateTime.Now); // Default value for HireDate
 
+            modelBuilder.Entity<Teacher>()
+                .Property(t => t.Salary)
+                .HasDefaultValue(6000.0);
+
             // Configure Course entity
             modelBuilder.Entity<Course>()
                 .HasOne(c => c.Department) // A course belongs to one department

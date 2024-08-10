@@ -1,4 +1,6 @@
 ﻿using Educational_System.Models;
+using System.Transactions;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Educational_System.CRUD
 {
@@ -67,20 +69,8 @@ namespace Educational_System.CRUD
         public static void UpdateCourse()
         {
             Course course = SearchForCourse(); // Retrieve course details
-            Teacher teacher2 = new Teacher();
-
-            Console.WriteLine("The Old Data\n");
-            if (course.TeacherID != null)
-            {
-                teacher2 = _context.Teachers.Find(course.TeacherID);
-            }
-
-            Console.WriteLine($"Name: {course.CourseName}\n" +
-                              $"ID: {course.CourseID}\n" +
-                              $"Department ID: {course.DepartmentID}\n" +
-                              $"Credits: {course.Credits}\n" +
-                              $"Teacher: {(teacher2 != null ? $"{teacher2.TeacherName}- {teacher2.TeacherID}" : "No Teacher")}");
-
+            Helpers.PrintCourse(course);
+            
             Console.Write("\nEnter Course New Name: ");
             course.CourseName = Console.ReadLine();
 
@@ -113,21 +103,9 @@ namespace Educational_System.CRUD
         public static void PrintAllCourse()
         {
             var courses = _context.Courses.ToList();
-            Teacher teacher2;
-            int ID;
-            string name;
-
             foreach (var course in courses)
             {
-                teacher2 = _context.Teachers.Find(course.TeacherID);
-                ID = teacher2 != null ? teacher2.TeacherID : 0;
-                name = teacher2 != null ? teacher2.TeacherName : "No Teacher";
-
-                Console.WriteLine($"Name: {course.CourseName}\n" +
-                              $"ID: {course.CourseID}\n" +
-                              $"Department ID: {course.DepartmentID}\n" +
-                              $"Credits: {course.Credits}\n" +
-                              $"Teacher: {name}- {ID}");
+                Helpers.PrintCourse(course);
                 Console.WriteLine("------------------------------------");
             }
         }
@@ -252,6 +230,30 @@ namespace Educational_System.CRUD
             {
                 Console.WriteLine("The Course Is Already Deassigned");
             }
+        }
+
+        /// <summary>
+        /// Assign a course score for a student.
+        /// </summary>
+        public static void AssignScoreToStudent()
+        {
+            Student student = StudentManagement.SearchForStudent();
+            var StudentEnrollments = _context.Enrollments.Where(s => s.StudentID == student.StudentID).ToList(); 
+
+            foreach(var enroll in StudentEnrollments)
+            {
+                var course = _context.Courses.Find(enroll.CourseID);
+                Console.Write($"Enter the score for [{course.CourseName}] (between 0 and 100): ");
+                enroll.score = double.Parse(Console.ReadLine());
+                if(enroll.score < 0 || enroll.score > 100)
+                {
+                    throw new Exception("Enter a Vaild Score");
+                }
+            }
+
+
+            _context.SaveChanges();
+            Console.WriteLine("Scores have been assigned successfully.");
         }
     }
 }

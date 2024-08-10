@@ -84,8 +84,7 @@ namespace Educational_System.CRUD
             Student search = SearchForStudent(); // Retrieve student details
             Console.WriteLine("The Old Data");
             Console.WriteLine();
-            Console.WriteLine($"Name: {search.StudentName}\nID: {search.StudentID}\nDepartment ID: {search.DepartmentID}\nEmail: {search.Email}\nAge {DateTime.Now.Year - search.DateOfBirth.Year}\nDate of Birth {search.DateOfBirth.ToShortDateString()}\nEnrollment Date: {search.EnrollmentDate.ToShortDateString()}");
-
+            Helpers.PrintStudent(search);
             Console.WriteLine();
 
             // Prompt user for new student details
@@ -129,7 +128,9 @@ namespace Educational_System.CRUD
             Console.Write("Enter Student ID: ");
             Student search = SearchForStudent(); // Retrieve student details
 
-            Console.WriteLine($"Name: {search.StudentName}\nID: {search.StudentID}\nDepartment ID: {search.DepartmentID}\nEmail: {search.Email}\nAge {DateTime.Now.Year - search.DateOfBirth.Year}\nDate of Birth {search.DateOfBirth.ToShortDateString()}\nEnrollment Date: {search.EnrollmentDate.ToShortDateString()}");
+            Helpers.PrintStudent(search);
+            Console.WriteLine();
+
             Console.Write("Are You Sure You want To Delete This Student (y/n): ");
             char sure = char.Parse(Console.ReadLine());
             sure = Char.ToLower(sure);
@@ -164,13 +165,7 @@ namespace Educational_System.CRUD
             Console.WriteLine();
             foreach (var search in students)
             {
-                Console.WriteLine($"Name: {search.StudentName}\n" +
-                                  $"ID: {search.StudentID}\n" +
-                                  $"Department ID: {search.DepartmentID}\n" +
-                                  $"Email: {search.Email}\n" +
-                                  $"Age {DateTime.Now.Year - search.DateOfBirth.Year}\n" +
-                                  $"Date of Birth {search.DateOfBirth.ToShortDateString()}\n" +
-                                  $"Enrollment Date: {search.EnrollmentDate.ToShortDateString()}");
+                Helpers.PrintStudent(search);
                 Console.WriteLine("--------------------------------------");
             }
         }

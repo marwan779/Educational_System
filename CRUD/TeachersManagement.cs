@@ -37,6 +37,12 @@ namespace Educational_System.CRUD
                 throw new Exception("Enter a Valid Email!");
             }
 
+            Console.Write("Enter Teacher Salary (must be > 3000): ");
+            teacher.Salary = double.Parse(Console.ReadLine());
+            if(teacher.Salary < 3000)
+            {
+                throw new Exception("Enter a Valid Salary!");
+            }
             _context.Add(teacher);
             _context.SaveChanges();
 
@@ -72,9 +78,9 @@ namespace Educational_System.CRUD
         {
             Teacher teacher = SearchForTeacher();
 
-            Console.WriteLine("The Old Data");
+            Console.WriteLine("The Old Data\n");
+            Helpers.PrintTeacher(teacher);
             Console.WriteLine();
-            Console.WriteLine($"Name: {teacher.TeacherName}\nID: {teacher.TeacherID}\nDepartment ID: {teacher.DepartmentID}\nEmail: {teacher.Email}\nHire Date: {teacher.HireDate.ToShortDateString()}");
 
             Console.Write("Enter Teacher New Name: ");
             teacher.TeacherName = Console.ReadLine();
@@ -87,6 +93,13 @@ namespace Educational_System.CRUD
             if (String.IsNullOrEmpty(teacher.Email) || !teacher.Email.Contains('@'))
             {
                 throw new Exception("Enter a Valid Email!");
+            }
+
+            Console.Write("Enter Teacher New Salary (must be > 3000): ");
+            teacher.Salary = double.Parse(Console.ReadLine());
+            if (teacher.Salary < 3000)
+            {
+                throw new Exception("Enter a Valid Salary!");
             }
 
             _context.Update(teacher);
@@ -102,7 +115,8 @@ namespace Educational_System.CRUD
         {
             Teacher teacher = SearchForTeacher();
 
-            Console.WriteLine($"Name: {teacher.TeacherName}\nID: {teacher.TeacherID}\nDepartment ID: {teacher.DepartmentID}\nEmail: {teacher.Email}\nHire Date: {teacher.HireDate.ToShortDateString()}");
+            Helpers.PrintTeacher(teacher);
+
             Console.Write("Are you sure you want to delete this teacher? (y/n): ");
             char sure = char.Parse(Console.ReadLine());
             sure = Char.ToLower(sure);
@@ -134,7 +148,7 @@ namespace Educational_System.CRUD
 
             foreach (var teacher in teachers)
             {
-                Console.WriteLine($"Name: {teacher.TeacherName}\nID: {teacher.TeacherID}\nDepartment ID: {teacher.DepartmentID}\nEmail: {teacher.Email}\nHire Date: {teacher.HireDate.ToShortDateString()}");
+                Helpers.PrintTeacher(teacher);
                 Console.WriteLine("--------------------------------");
             }
         }
