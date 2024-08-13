@@ -38,7 +38,10 @@ namespace Educational_System.CRUD
             // Add the course to the context and save changes
             _context.Courses.Add(course);
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Course Added Successfully (Course ID: {course.CourseID})");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -94,21 +97,13 @@ namespace Educational_System.CRUD
             // Update course details and save changes
             _context.Update(course);
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Course Updated Successfully");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
-        /// <summary>
-        /// Prints all courses in the database.
-        /// </summary>
-        public static void PrintAllCourse()
-        {
-            var courses = _context.Courses.ToList();
-            foreach (var course in courses)
-            {
-                Helpers.PrintCourse(course);
-                Console.WriteLine("------------------------------------");
-            }
-        }
+        
 
         /// <summary>
         /// Adds a course for a specific student.
@@ -125,7 +120,10 @@ namespace Educational_System.CRUD
 
             _context.Enrollments.Add(enrollment);
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("The Course is Added For Student Successfully");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -139,7 +137,10 @@ namespace Educational_System.CRUD
             course.TeacherID = teacher.TeacherID;
 
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("The Course is Assigned Successfully");
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         /// <summary>
@@ -224,7 +225,10 @@ namespace Educational_System.CRUD
                 course.TeacherID = null;
                 _context.Update(course);
                 _context.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("The Course Has Been Successfully Deassigned");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
@@ -253,7 +257,10 @@ namespace Educational_System.CRUD
 
 
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Scores have been assigned successfully.");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

@@ -49,7 +49,9 @@ namespace Educational_System.CRUD
             _context.Add(student);
             _context.SaveChanges();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Student Added Successfully (Student ID: {student.StudentID})");
+            Console.ForegroundColor= ConsoleColor.White;
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace Educational_System.CRUD
             int ID = int.Parse(Console.ReadLine());
             var search = _context.Students.Find(ID);
 
-            Console.WriteLine("----------------------------");
+            
             if (search != null)
             {
                 return search;
@@ -116,7 +118,9 @@ namespace Educational_System.CRUD
             _context.Update(search);
             _context.SaveChanges();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Student Updated Successfully");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -147,26 +151,14 @@ namespace Educational_System.CRUD
                 // Remove student and save changes
                 _context.Remove(search);
                 _context.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Student Deleted Successfully");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 Console.WriteLine("Deletion is Cancelled");
-            }
-        }
-
-        /// <summary>
-        /// Prints all students in the database.
-        /// </summary>
-        public static void PrintAllStudents()
-        {
-            var students = _context.Students.ToList();
-
-            Console.WriteLine();
-            foreach (var search in students)
-            {
-                Helpers.PrintStudent(search);
-                Console.WriteLine("--------------------------------------");
             }
         }
     }

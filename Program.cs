@@ -57,7 +57,7 @@ namespace Educational_System
                             StudentManagement.DeleteStudent();
                             break;
                         case 5:
-                            StudentManagement.PrintAllStudents();
+                            Helpers.PrintAllStudents(); 
                             break;
                         default: throw new Exception("Enter Valid Choice !");
 
@@ -90,7 +90,7 @@ namespace Educational_System
                             TeachersManagement.DeleteTeacher();
                             break;
                         case 5:
-                            TeachersManagement.PrintAllTeachers();
+                            Helpers.PrintAllTeachers();
                             break;
                         default: throw new Exception("Enter Valid Choice !");
 
@@ -130,7 +130,7 @@ namespace Educational_System
                             EnrollmentManagement.UpdateCourse();
                             break;
                         case 4:
-                            EnrollmentManagement.PrintAllCourse();
+                            Helpers.PrintAllCourse();
                             break;
                         case 5:
                             EnrollmentManagement.AddCourseForStudent(); 

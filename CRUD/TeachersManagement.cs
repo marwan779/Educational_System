@@ -46,7 +46,9 @@ namespace Educational_System.CRUD
             _context.Add(teacher);
             _context.SaveChanges();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Teacher Added Successfully (Teacher ID {teacher.TeacherID})");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -104,7 +106,10 @@ namespace Educational_System.CRUD
 
             _context.Update(teacher);
             _context.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Teacher Updated Successfully");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -131,7 +136,10 @@ namespace Educational_System.CRUD
 
                 _context.Remove(teacher);
                 _context.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Teacher Deleted Successfully");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
@@ -139,18 +147,7 @@ namespace Educational_System.CRUD
             }
         }
 
-        /// <summary>
-        /// Prints all teachers in the database.
-        /// </summary>
-        public static void PrintAllTeachers()
-        {
-            var teachers = _context.Teachers.ToList();
-
-            foreach (var teacher in teachers)
-            {
-                Helpers.PrintTeacher(teacher);
-                Console.WriteLine("--------------------------------");
-            }
-        }
+        
+        
     }
 }

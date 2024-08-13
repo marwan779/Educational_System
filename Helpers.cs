@@ -14,14 +14,35 @@ namespace Educational_System
         public static void PrintStudent(Student student)
         {
             student.AverageScore = CalculateAverageScoreForStudnet(student);
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            Console.WriteLine("| ID |             Name                | Department ID  |             Email              |      Age       | Enrollment Date | Average Score |");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            Console.WriteLine($"|{student.StudentID,2}  | {student.StudentName,-31} | {student.DepartmentID,8}       | {student.Email,-30} | {DateTime.Now.Year - student.DateOfBirth.Year ,8}       | " +
+                $" {student.EnrollmentDate.ToShortDateString(),10}     | {student.AverageScore,8}      |");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            Console.WriteLine("\n");
+        }
 
-            Console.WriteLine($"Name: {student.StudentName}\n" +
-                                              $"ID: {student.StudentID}\n" +
-                                              $"Department ID: {student.DepartmentID}\n" +
-                                              $"Email: {student.Email} \n" +
-                                              $"Age {DateTime.Now.Year - student.DateOfBirth.Year}\nDate of Birth {student.DateOfBirth.ToShortDateString()}\n" +
-                                              $"Enrollment Date: {student.EnrollmentDate.ToShortDateString()}\n" +
-                                              $"Average Score: {student.AverageScore}");
+        /// <summary>
+        /// Prints all students in the database.
+        /// </summary>
+        public static void PrintAllStudents()
+        {
+            var students = _context.Students.ToList();
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            Console.WriteLine("| ID |             Name                | Department ID  |             Email              |      Age       | Enrollment Date | Average Score |");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            foreach (Student student in students)
+            {
+                student.AverageScore = CalculateAverageScoreForStudnet(student);
+
+                Console.WriteLine($"|{student.StudentID,2}  | {student.StudentName,-31} | {student.DepartmentID,8}       | {student.Email,-30} | {DateTime.Now.Year - student.DateOfBirth.Year,8}       | " +
+                $" {student.EnrollmentDate.ToShortDateString(),10}     | {student.AverageScore,8}      |");
+                Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+----------------+-----------------+---------------+");
+            }
+            Console.WriteLine("\n");
         }
 
         /// <summary>
@@ -42,28 +63,35 @@ namespace Educational_System
         /// <param name="teacher">The teacher object whose details are to be printed.</param>
         public static void PrintTeacher(Teacher teacher)
         {
-            Console.WriteLine($"Name: {teacher.TeacherName}\n" +
-                                              $"ID: {teacher.TeacherID}\n" +
-                                              $"Department ID: {teacher.DepartmentID}\n" +
-                                              $"Email: {teacher.Email}\n" +
-                                              $"Hire Date: {teacher.HireDate.ToShortDateString()}\n" +
-                                              $"Salary: {teacher.Salary}$");
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+            Console.WriteLine("| ID |             Name                | Department ID  |             Email              |      Hire Date      | Salary | ");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+            Console.WriteLine($"|{teacher.TeacherID,2}  | {teacher.TeacherName,-31} | {teacher.DepartmentID,8}       | {teacher.Email,-30} | {teacher.HireDate.ToShortDateString(),13}       | " +
+               $" {teacher.Salary,2} |");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+            Console.WriteLine("\n");
+        }
 
-            // Fetch and display courses assigned to the teacher
-            var courses = from course1 in _context.Courses
-                          join teacher1 in _context.Teachers
-                          on course1.TeacherID equals teacher.TeacherID
-                          where teacher1.TeacherID == teacher.TeacherID
-                          select new
-                          {
-                              CourseName = course1.CourseName,
-                              CourseID = course1.CourseID,
-                          };
-            Console.WriteLine($"Courses assigned to Teacher ID {teacher.TeacherID}:");
-            foreach (var c in courses)
+        /// <summary>
+        /// Prints all teachers in the database.
+        /// </summary>
+        public static void PrintAllTeachers()
+        {
+            var teachers = _context.Teachers.ToList();
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+            Console.WriteLine("| ID |             Name                | Department ID  |             Email              |      Hire Date      | Salary | ");
+            Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+
+            foreach (var teacher in teachers)
             {
-                Console.WriteLine($"Course ID: {c.CourseID}, Course Name: {c.CourseName}");
+                Console.WriteLine($"|{teacher.TeacherID,2}  | {teacher.TeacherName,-31} | {teacher.DepartmentID,8}       | {teacher.Email,-30} | {teacher.HireDate.ToShortDateString(),13}       | " +
+                   $" {teacher.Salary,2} |");
+                Console.WriteLine("+----+---------------------------------+----------------+--------------------------------+---------------------+--------+");
+
             }
+            Console.WriteLine("\n");
         }
 
         /// <summary>
@@ -77,11 +105,44 @@ namespace Educational_System
             {
                 teacher = _context.Teachers.Find(course.TeacherID);
             }
-            Console.WriteLine($"Name: {course.CourseName}\n" +
-                              $"ID: {course.CourseID}\n" +
-                              $"Department ID: {course.DepartmentID}\n" +
-                              $"Credits: {course.Credits}\n" +
-                              $"Teacher: {teacher.TeacherName}- {teacher.TeacherID}");
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+            Console.WriteLine("| ID |             Title               | Department ID  | Credits | Teacher ID |          Teacher Name           | ");
+            Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+
+            Console.WriteLine($"|{course.CourseID,2}  | {course.CourseName,-31} | {course.DepartmentID,8}       | {course.Credits,-7} | {teacher.TeacherID,-7}    |{teacher.TeacherName,+20}             | ");
+            Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+            Console.WriteLine("\n");
+        }
+
+        /// <summary>
+        /// Prints all courses in the database.
+        /// </summary>
+        public static void PrintAllCourse()
+        {
+            Teacher teacher = new Teacher();
+            var teachers = _context.Teachers.ToList();
+            Console.WriteLine("\n");
+            Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+            Console.WriteLine("| ID |             Title               | Department ID  | Credits | Teacher ID |          Teacher Name           | ");
+            Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+
+            foreach(Course course in _context.Courses)
+            {
+                if (course.TeacherID != null)
+                {
+                    teacher = teachers.Find(t => t.TeacherID == course.TeacherID);
+                }
+                else
+                {
+                    teacher.TeacherName = "";
+                    teacher.TeacherID = 0;
+                }
+
+                Console.WriteLine($"|{course.CourseID,2}  | {course.CourseName,-31} | {course.DepartmentID,8}       | {course.Credits,-7} | {teacher.TeacherID,-7}    |{teacher.TeacherName,+20}             | ");
+                Console.WriteLine("+----+---------------------------------+----------------+---------+------------+---------------------------------+");
+            }
+            Console.WriteLine("\n");
         }
     }
 }
