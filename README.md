@@ -23,8 +23,6 @@ Prerequisites
 Microsoft SQL Server or another compatible database server
 
 1- Clone the Repository:
-git clone https://github.com/yourusername/educational-system-management.git
-cd educational-system-management
 
 2- Install Dependencies:
 Make sure you have the necessary NuGet packages installed. You can do this by running:
