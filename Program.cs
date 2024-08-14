@@ -1,5 +1,6 @@
 ﻿using Educational_System.CRUD;
 using Educational_System.Models;
+using System;
 
 namespace Educational_System
 {
@@ -22,22 +23,33 @@ namespace Educational_System
             while (true)
             {
                 // Display main menu
-                Console.WriteLine(" --------------------\n" +
-                              "| Educational System |\n" +
-                              " --------------------");
-                Console.WriteLine("[1]Students Management\n[2]Teachers Management\n[3]Enrollments Management\n[4]Exit\n" +
-                              "-------------------");
+                Console.WriteLine("╔════════════════════════╗");
+                Console.WriteLine("║   Educational System   ║");
+                Console.WriteLine("╚════════════════════════╝");
+                Console.WriteLine("╔═══════════════════════════╗");
+                Console.WriteLine("║ [1] Students Management   ║");
+                Console.WriteLine("║ [2] Teachers Management   ║");
+                Console.WriteLine("║ [3] Enrollments Management║");
+                Console.WriteLine("║ [4] Exit                  ║");
+                Console.WriteLine("╚═══════════════════════════╝");
                 Console.Write("Enter Your Choice: ");
                 int Choice = int.Parse(Console.ReadLine());
 
                 if (Choice == 1)
                 {
                     // Students management menu
-                    Console.WriteLine(" --------------------\n" +
-                                      "| Students Management |\n" +
-                                      " --------------------");
-                    Console.WriteLine("[1]Add New Student\n[2]Search For Student\n[3]Update Student\n[4]Delete Student\n[5]Print All Students\n" +
-                                  "---------------------");
+                    Console.WriteLine("╔══════════════════════╗");
+                    Console.WriteLine("║  Students Management ║");
+                    Console.WriteLine("╚══════════════════════╝");
+
+                    Console.WriteLine("╔═══════════════════════╗");
+                    Console.WriteLine("║ [1] Add New Student   ║");
+                    Console.WriteLine("║ [2] Search for Student║");
+                    Console.WriteLine("║ [3] Update Student    ║");
+                    Console.WriteLine("║ [4] Delete Student    ║");
+                    Console.WriteLine("║ [5] Print All Students║");
+                    Console.WriteLine("╚═══════════════════════╝");
+
                     Console.Write("Enter Your Choice: ");
                     int StudentManage = int.Parse(Console.ReadLine());
                     switch (StudentManage)
@@ -67,11 +79,16 @@ namespace Educational_System
                 else if (Choice == 2)
                 {
                     // Teachers management menu
-                    Console.WriteLine(" ---------------------\n" +
-                                      "| Teachers Management |\n" +
-                                      " ---------------------");
-                    Console.WriteLine("[1]Add New Teacher\n[2]Search For Teacher\n[3]Update Teacher\n[4]Delete Teacher\n[5]Print All Teachers\n" +
-                                  "---------------------");
+                    Console.WriteLine("╔═════════════════════╗");
+                    Console.WriteLine("║ Teachers Management ║");
+                    Console.WriteLine("╚═════════════════════╝");
+                    Console.WriteLine("╔═══════════════════════╗");
+                    Console.WriteLine("║ [1] Add New Teacher   ║");
+                    Console.WriteLine("║ [2] Search for Teacher║");
+                    Console.WriteLine("║ [3] Update Teacher    ║");
+                    Console.WriteLine("║ [4] Delete Teacher    ║");
+                    Console.WriteLine("║ [5] Print All Teachers║");
+                    Console.WriteLine("╚═══════════════════════╝");
                     Console.Write("Enter Your Choice: ");
                     int TeacherManage = int.Parse(Console.ReadLine());
                     switch (TeacherManage)
@@ -100,20 +117,22 @@ namespace Educational_System
                 else if (Choice == 3)
                 {
                     // Enrollments management menu
-                    Console.WriteLine(" ------------------------ \n" +
-                                      "| Enrollments Management  |\n" +
-                                      " ------------------------ ");
-                    Console.WriteLine("[1]Add New Course\n" +
-                                      "[2]Search For Course\n" +
-                                      "[3]Update Course\n" +
-                                      "[4]Print All Courses\n" +
-                                      "[5]Add Course For Student\n" +
-                                      "[6]Assign Course To Teacher\n" +
-                                      "[7]View Student Enrollments\n" +
-                                      "[8]Remove Course For Student\n" +
-                                      "[9]Deassign Course From Teacher\n" +
-                                      "[10]Assign Score To Student\n" +
-                                      "---------------------");
+                    Console.WriteLine("╔═════════════════════════╗");
+                    Console.WriteLine("║  Enrollments Management ║");
+                    Console.WriteLine("╚═════════════════════════╝");
+
+                    Console.WriteLine("╔═════════════════════════════════╗");
+                    Console.WriteLine("║ [1] Add New Course              ║");
+                    Console.WriteLine("║ [2] Search for Course           ║");
+                    Console.WriteLine("║ [3] Update Course               ║");
+                    Console.WriteLine("║ [4] Print All Courses           ║");
+                    Console.WriteLine("║ [5] Add Course for Student      ║");
+                    Console.WriteLine("║ [6] Assign Course to Teacher    ║");
+                    Console.WriteLine("║ [7] View Student Enrollments    ║");
+                    Console.WriteLine("║ [8] Remove Course for Student   ║");
+                    Console.WriteLine("║ [9] Deassign Course from Teacher║");
+                    Console.WriteLine("║ [10] Assign Score to Student    ║");
+                    Console.WriteLine("╚═════════════════════════════════╝");
                     Console.Write("Enter Your Choice: ");
                     int EnrollmentManage = int.Parse(Console.ReadLine());
    
