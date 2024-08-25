@@ -21,20 +21,28 @@ namespace Educational_System.CRUD
             teacher.TeacherName = Console.ReadLine();
 
             // Display available departments
-            var departments = _context.Departments.Select(e => e);
-            foreach (var department in departments)
-            {
-                Console.WriteLine($"Department Name: {department.DepartmentName} Department ID: {department.DepartmentID}");
-            }
+            Helpers.PrintAllDepartments();
 
             Console.Write("Enter Teacher Department ID: ");
             teacher.DepartmentID = int.Parse(Console.ReadLine());
 
             Console.Write("Enter Teacher Email (must contain @): ");
-            teacher.Email = Console.ReadLine();
-            if (String.IsNullOrEmpty(teacher.Email) || !teacher.Email.Contains('@'))
+            string email = Console.ReadLine();
+
+            var UniqeEmail = _context.Teachers.FirstOrDefault(teacher => teacher.Email == email);
+
+            // Validate email input
+            if (String.IsNullOrEmpty(email) || !email.Contains('@'))
             {
                 throw new Exception("Enter a Valid Email!");
+            }
+            else if (UniqeEmail != null)
+            {
+                throw new Exception("A student with this email already exists. Please use a different email.");
+            }
+            else
+            {
+                teacher.Email = email;
             }
 
             Console.Write("Enter Teacher Salary (must be > 3000): ");
@@ -84,17 +92,36 @@ namespace Educational_System.CRUD
             Helpers.PrintTeacher(teacher);
             Console.WriteLine();
 
-            Console.Write("Enter Teacher New Name: ");
-            teacher.TeacherName = Console.ReadLine();
+            Console.Write("Enter Teacher Name (Press Enter To Skip): ");
+            string TempName = Console.ReadLine();
 
+            if (!String.IsNullOrEmpty(TempName))
+            {
+                teacher.TeacherName = TempName;
+            }
+
+            Helpers.PrintAllDepartments();
             Console.Write("Enter Teacher New Department ID:");
             teacher.DepartmentID = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Teacher New Email (must contain @): ");
-            teacher.Email = Console.ReadLine();
-            if (String.IsNullOrEmpty(teacher.Email) || !teacher.Email.Contains('@'))
+            Console.Write("Enter Teacher New Email (must contain @) (Press Enter To Skip): ");
+            string email = Console.ReadLine();
+
+            var UniqeEmail = _context.Teachers.FirstOrDefault(teacher => teacher.Email == email);
+
+            // Validate email input           
+            if (UniqeEmail != null)
             {
-                throw new Exception("Enter a Valid Email!");
+                throw new Exception("A student with this email already exists. Please use a different email.");
+            }
+            else if (!String.IsNullOrEmpty(email))
+            {
+                if (!email.Contains('@'))
+                {
+                    throw new Exception("Enter A Vaild Email.");
+                }
+
+                teacher.Email = email;
             }
 
             Console.Write("Enter Teacher New Salary (must be > 3000): ");
@@ -143,7 +170,9 @@ namespace Educational_System.CRUD
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Deletion Cancelled");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

@@ -69,6 +69,14 @@ namespace Educational_System
                 .HasColumnType("date")
                 .HasDefaultValue(DateTime.Now); // Default value for EnrollmentDate
 
+            modelBuilder.Entity<Student>()
+                .Property(d => d.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<Student>()
+                .HasIndex(d => d.Email)
+                .IsUnique();
+
             // Configure Enrollment entity
             modelBuilder.Entity<Enrollment>()
                 .HasKey(e => new { e.StudentID, e.CourseID }); // Composite primary key
@@ -109,6 +117,15 @@ namespace Educational_System
             modelBuilder.Entity<Teacher>()
                 .Property(t => t.Salary)
                 .HasDefaultValue(6000.0);
+
+            modelBuilder.Entity<Teacher>()
+                .Property(t => t.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<Teacher>()
+                .HasIndex(t => t.Email)
+                .IsUnique();
+                
 
             // Configure Course entity
             modelBuilder.Entity<Course>()

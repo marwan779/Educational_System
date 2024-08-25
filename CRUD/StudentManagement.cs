@@ -24,11 +24,7 @@ namespace Educational_System.CRUD
             Console.WriteLine();
 
             // Display available departments
-            var departments = _context.Departments.Select(e => e);
-            foreach (var department in departments)
-            {
-                Console.WriteLine($"{department.DepartmentName}- {department.DepartmentID}");
-            }
+            Helpers.PrintAllDepartments();
 
             Console.Write("Enter Student Department ID: ");
             student.DepartmentID = int.Parse(Console.ReadLine());
@@ -37,12 +33,22 @@ namespace Educational_System.CRUD
             student.DateOfBirth = DateTime.Parse(Console.ReadLine());
 
             Console.Write("Enter Student Email (the email must contain @): ");
-            student.Email = Console.ReadLine();
+            string email = Console.ReadLine();
+
+            var UniqeEmail = _context.Students.FirstOrDefault(student => student.Email == email);
 
             // Validate email input
-            if (String.IsNullOrEmpty(student.Email) || !student.Email.Contains('@'))
-            {
+            if (String.IsNullOrEmpty(email) || !email.Contains('@'))
+            { 
                 throw new Exception("Enter a Valid Email!");
+            }
+            else if(UniqeEmail != null)
+            {
+                throw new Exception("A student with this email already exists. Please use a different email.");
+            }
+            else
+            {
+                student.Email = email;
             }
 
             // Add the student to the context and save changes
@@ -82,7 +88,6 @@ namespace Educational_System.CRUD
         /// </summary>
         public static void UpdateStudent()
         {
-            Console.Write("Enter Student ID: ");
             Student search = SearchForStudent(); // Retrieve student details
             Console.WriteLine("The Old Data");
             Console.WriteLine();
@@ -90,28 +95,38 @@ namespace Educational_System.CRUD
             Console.WriteLine();
 
             // Prompt user for new student details
-            Console.Write("Enter Student New Name: ");
-            search.StudentName = Console.ReadLine();
+            Console.Write("Enter Student New Name (Press Enter To Skip): ");
+            string TempName = Console.ReadLine();
 
-            Console.WriteLine();
+            if(!String.IsNullOrEmpty(TempName))
+            {
+                search.StudentName = TempName;
+            }
 
             // Display available departments
-            var departments = _context.Departments.Select(e => e);
-            foreach (var department in departments)
-            {
-                Console.WriteLine($"Department Name: {department.DepartmentName} Department ID {department.DepartmentID}");
-            }
+            Helpers.PrintAllDepartments();
 
             Console.Write("Enter Student New Department ID: ");
             search.DepartmentID = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Student New Email (the email must contain @): ");
-            search.Email = Console.ReadLine();
+            Console.Write("Enter Student New Email (the email must contain @) (Press Enter To Skip): ");
+            string email = Console.ReadLine();
+
+            var UniqeEmail = _context.Students.FirstOrDefault(student => student.Email == email);
 
             // Validate email input
-            if (String.IsNullOrEmpty(search.Email) || !search.Email.Contains('@'))
+            if (UniqeEmail != null)
             {
-                throw new Exception("Enter a Valid Email!");
+                throw new Exception("A student with this email already exists. Please use a different email.");
+            }
+            else if (!String.IsNullOrEmpty(email))
+            {
+                if (!email.Contains('@'))
+                {
+                    throw new Exception("Enter A Vaild Email.");
+                }
+
+                search.Email = email;
             }
 
             // Update student details and save changes
@@ -158,7 +173,9 @@ namespace Educational_System.CRUD
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Deletion is Cancelled");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

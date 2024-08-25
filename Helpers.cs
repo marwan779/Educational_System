@@ -144,5 +144,25 @@ namespace Educational_System
             }
             Console.WriteLine("\n");
         }
+
+        /// <summary>
+        /// Prints all Departments in the database.
+        /// </summary>
+        public static void PrintAllDepartments()
+        {
+            var Departments = _context.Departments.ToList();
+            Console.WriteLine("\n");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("| Department ID | Department Name          |");
+            Console.WriteLine("--------------------------------------------");
+            foreach(var department in Departments)
+            {
+                Console.WriteLine($"|       {department.DepartmentID}       | {department.DepartmentName}");
+            }
+
+            Console.WriteLine("+---------------+--------------------------+");
+            Console.WriteLine("\n");
+
+        }
     }
 }
